@@ -576,6 +576,7 @@ public class GHPullRequestTest extends AbstractGitHubWireMockTest {
         assertThat(reviewer, notNullValue());
     }
 
+    //CS427 Issue link: https://github.com/hub4j/github-api/issues/1243
     @Test
     public void testNullReviewer() throws Exception {
         String name = "testPullRequestReviews";
