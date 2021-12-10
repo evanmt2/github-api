@@ -1,0 +1,21 @@
+[
+  {
+    "id": 285200956,
+    "node_id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Mjg1MjAwOTU2",
+    "user": null,
+    "body": "Some draft review",
+    "state": "PENDING",
+    "html_url": "https://github.com/hub4j-test-org/github-api/pull/258#pullrequestreview-285200956",
+    "pull_request_url": "https://api.github.com/repos/hub4j-test-org/github-api/pulls/258",
+    "author_association": "MEMBER",
+    "_links": {
+      "html": {
+        "href": "https://github.com/hub4j-test-org/github-api/pull/258#pullrequestreview-285200956"
+      },
+      "pull_request": {
+        "href": "https://api.github.com/repos/hub4j-test-org/github-api/pulls/258"
+      }
+    },
+    "commit_id": "2d29c787b46ce61b98a1c13e05e21ebc21f49dbf"
+  }
+]

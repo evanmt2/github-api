@@ -576,6 +576,34 @@ public class GHPullRequestTest extends AbstractGitHubWireMockTest {
         assertThat(reviewer, notNullValue());
     }
 
+    @Test
+    public void testNullReviewer() throws Exception {
+        String name = "testPullRequestReviews";
+        GHPullRequest p = getRepository().createPullRequest(name, "test/stable", "main", "## test");
+        GHPullRequestReview draftReview = p.createReview()
+                .body("Some draft review")
+                .comment("Some niggle", "README.md", 1)
+                .create();
+        assertThat(draftReview.getState(), is(GHPullRequestReviewState.PENDING));
+        assertThat(draftReview.getBody(), is("Some draft review"));
+        assertThat(draftReview.getCommitId(), notNullValue());
+        List<GHPullRequestReview> reviews = p.listReviews().toList();
+        assertThat(reviews.size(), is(1));
+        GHPullRequestReview review = reviews.get(0);
+        GHUser user = review.getUser();
+        assertThat(user, nullValue());
+        assertThat(review.getState(), is(GHPullRequestReviewState.PENDING));
+        assertThat(review.getBody(), is("Some draft review"));
+        assertThat(review.getCommitId(), notNullValue());
+        draftReview.submit("Some review comment", GHPullRequestReviewEvent.COMMENT);
+        List<GHPullRequestReviewComment> comments = review.listReviewComments().toList();
+        assertThat(comments.size(), equalTo(1));
+        GHPullRequestReviewComment comment = comments.get(0);
+        assertThat(comment.getBody(), equalTo("Some niggle"));
+        draftReview = p.createReview().body("Some new review").comment("Some niggle", "README.md", 1).create();
+        draftReview.delete();
+    }
+
     protected GHRepository getRepository() throws IOException {
         return getRepository(gitHub);
     }
